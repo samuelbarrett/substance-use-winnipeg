@@ -14,11 +14,6 @@ import java.sql.SQLException;
 
 public class SubstanceUse {
 
-	// constructor
-	public SubstanceUse() {
-
-	}
-
 	// main
 	public static void main(String[] args) {
 		try {
@@ -26,17 +21,18 @@ public class SubstanceUse {
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		Connection connect = null;
 		try {
 			// connect to the database file (substance-use-wpg.sqlite)
-			connect = DriverManager.getConnection("jdbc:sqlite:/substance-use-wpg.sqlite");
-
+			connect = DriverManager.getConnection("jdbc:sqlite:substance-use-wpg.sqlite");
+			System.out.println("Connected to substance-use-wpg.sqlite");
 			// everything else goes here (loop basically? until we exit the program?)
 
 		} 
 		catch(SQLException e) {
 			System.out.println(e.getMessage());
+			System.out.println("CONNECTION FAILED");
 		} 
 		finally {
 			// we close the connection if applicable
