@@ -5,10 +5,14 @@
 <h3>Compile and run:</h3>
 
 <h4>Windows:</h4>
+
 <text>javac SubstanceUse.java</text>
+
 <text>java -cp .;sqlite-jdbc-3.36.0.3.jar SubstanceUse</text>
 
 <h4>Mac/Linux:</h4>
+
 <text>javac SubstanceUse.java</text>
+
 <text>java -cp .:sqlite-jdbc-3.36.0.3.jar SubstanceUse</text>
 
