@@ -4,27 +4,25 @@
 // COMP 3380
 // Project Team 6
 
-// notes: this will be the class with jdbc and methods interacting with our sqlite file.
-// 		we will create an instance of this class and call its methods in another java file which will contain our main method.
-//		that file will also have our UI (or at least calls the UI).
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class SubstanceUse {
+	private static Connection connect = null;
 
 	// main
 	public static void main(String[] args) {
+		// instantiate SQLite JDBC for database connection
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-
-		Connection connect = null;
+		// connect to the database file
 		try {
-			// connect to the database file (substance-use-wpg.sqlite)
 			connect = DriverManager.getConnection("jdbc:sqlite:substance-use-wpg.sqlite");
 			System.out.println("Connected to substance-use-wpg.sqlite");
 			// everything else goes here (loop basically? until we exit the program?)
@@ -46,7 +44,18 @@ public class SubstanceUse {
 		}
 	}
 
-
-
-
+	// which Wards have the most Narcan administrations?
+	public static ResultSet narcanByWard() {
+		String query = "select WardName, count(\"Narcan Administrations\") from Patient p, Neighbourhood n" + 
+						" where p.\"Neighbourhood ID\" = n.NeighbourhoodID" + 
+						" group by wardName";
+		ResultSet result = null;
+		try {
+			Statement statement = connect.createStatement();
+			result = statement.executeQuery(query);
+		} catch(SQLException e ) {
+			System.out.println(e.getMessage());
+		} 
+		return result;
+	}
 }

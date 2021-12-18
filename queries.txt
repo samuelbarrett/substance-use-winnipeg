@@ -1,0 +1,6 @@
+1. Which wards have the most narcan incidents?
+
+select WardName, count("Narcan Administrations") from Patient p, Neighbourhood n
+where p."Neighbourhood ID" = n.NeighbourhoodID
+group by wardName
+
