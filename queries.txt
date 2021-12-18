@@ -3,4 +3,12 @@
 select WardName, count("Narcan Administrations") from Patient p, Neighbourhood n
 where p."Neighbourhood ID" = n.NeighbourhoodID
 group by wardName
+----------
 
+2. Which age groups have the most narcan incidents?
+
+select age, count("Narcan Administrations") as numNarcan from Patient p
+group by age
+----------
+
+3. 
