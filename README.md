@@ -6,13 +6,13 @@
 
 <h4>Windows:</h4>
 
-<text>javac SubstanceUse.java</text>
+javac SubstanceUse.java
 
-<text>java -cp .;sqlite-jdbc-3.36.0.3.jar SubstanceUse</text>
+java -cp .;sqlite-jdbc-3.36.0.3.jar SubstanceUse
 
 <h4>Mac/Linux:</h4>
 
-<text>javac SubstanceUse.java</text>
+javac SubstanceUse.java
 
-<text>java -cp .:sqlite-jdbc-3.36.0.3.jar SubstanceUse</text>
+java -cp .:sqlite-jdbc-3.36.0.3.jar SubstanceUse
 
