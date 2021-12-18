@@ -27,10 +27,14 @@ public class SubstanceUse {
 			System.out.println("Connected to substance-use-wpg.sqlite");
 			// everything else goes here (loop basically? until we exit the program?)
 
+			// testing first query function. It works!
+			ResultSet result = narcanByWard();
+			while(result.next()) {
+				System.out.println(result.getString(1) + " " + result.getString(2));
+			}
 		} 
 		catch(SQLException e) {
 			System.out.println(e.getMessage());
-			System.out.println("CONNECTION FAILED");
 		} 
 		finally {
 			// we close the connection if applicable
@@ -43,6 +47,10 @@ public class SubstanceUse {
 			}
 		}
 	}
+
+	// NOTE: not sure what these methods should return, given that we're calling them with buttons.
+	//		I was thinking it would pass the ResultSet back to its caller but the caller is a button so...
+	//		these funcs might end up being void and passing result via some GUI function call that draws our tables/lists? idk yet.
 
 	// which Wards have the most Narcan administrations?
 	public static ResultSet narcanByWard() {
