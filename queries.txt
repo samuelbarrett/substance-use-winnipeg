@@ -28,6 +28,7 @@ where "Incident Number" in(
     order by  count("Patient Number") desc)
 order by "Incident Number"
 
+
 5. How many parties did each ward have?
 select distinct wardName, count (distinct "Incident Number") as NumParties from patient join neighbourhood
     on patient."neighbourhood ID" = neighbourhood.neighbourhoodID
@@ -39,6 +40,7 @@ where "Incident Number" in(
 group by wardName
 order by NumParties desc
 
+
 6. what are the 5 most problematic areas for substance X and how many occurences do these areas have for those substances?
 
 select distinct "Neighbourhood", substance, count(substance) as yup from patient natural join consumes join Neighbourhood on "Neighbourhood ID" = NeighbourhoodID
@@ -46,3 +48,11 @@ where substance == 'Crystal Meth'
 group by "Neighbourhood ID", substance
 order by yup desc, Neighbourhood
 limit 5
+
+
+7. What are the most common age/substance combinations?
+
+select distinct age, substance, count(substance) as yup from patient natural join consumes
+group by age, substance
+order by yup desc
+limit 10
