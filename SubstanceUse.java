@@ -77,6 +77,34 @@ public class SubstanceUse {
 	//
 	// (to be called by pressing buttons in our GUI)
 
+	// GET TABLES
+	public static void viewConsumes() {
+		String query = "select * from Consumes";
+		execute(query);
+	}
+	public static void viewIncident() {
+		String query = "select * from Incident";
+		execute(query);
+	}
+	public static void viewNeighbourhood() {
+		String query = "select * from Neighbourhood";
+		execute(query);
+	}
+	public static void viewPatient() {
+		String query = "select * from Patient";
+		execute(query);
+	}
+	public static void viewSubstance() {
+		String query = "select * from Substance";
+		execute(query);
+	}
+	public static void viewWard() {
+		String query = "select * from Ward";
+		execute(query);
+	}
+
+	// QUERIES
+
 	// 1. which Wards have the most Narcan administrations?
 	public static void narcanByWard() {
 		String query = "select WardName, count(\"Narcan Administrations\") from Patient p, Neighbourhood n" + 
