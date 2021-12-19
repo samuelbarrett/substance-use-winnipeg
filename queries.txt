@@ -56,3 +56,11 @@ select distinct age, substance, count(substance) as yup from patient natural joi
 group by age, substance
 order by yup desc
 limit 10
+
+8. What are the most common age groups for substance X?
+
+select distinct age, substance, count(substance) as yup from patient natural join consumes 
+where substance = 'Crystal Meth' 
+group by age, substance 
+order by yup desc 
+limit 5 
