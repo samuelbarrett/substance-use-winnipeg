@@ -38,3 +38,5 @@ where "Incident Number" in(
     order by  count("Patient Number") desc)
 group by wardName
 order by NumParties desc
+
+
