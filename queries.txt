@@ -19,8 +19,7 @@ group by "Incident Number"
 having numPatients > 2
 order by numPatients desc
 
-4. Which substances were at these drug busts?
-
+4. Which substances were at the parties people get wasted in? Most common? 
 select distinct "Incident Number", substance from Consumes
 where "Incident Number" in(
     select "Incident Number" from Patient p
@@ -29,3 +28,13 @@ where "Incident Number" in(
     order by  count("Patient Number") desc)
 order by "Incident Number"
 
+5. How many parties did each ward have?
+select distinct wardName, count (distinct "Incident Number") as NumParties from patient join neighbourhood
+    on patient."neighbourhood ID" = neighbourhood.neighbourhoodID
+where "Incident Number" in(
+    select "Incident Number" from Patient p
+    group by "Incident Number"
+    having  count("Patient Number")> 2
+    order by  count("Patient Number") desc)
+group by wardName
+order by NumParties desc
