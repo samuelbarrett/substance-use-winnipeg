@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -82,5 +81,6 @@ public class SubstanceUse {
 		frame.setTitle("Substance Use");
 		frame.pack();
 		frame.setSize(800, 500);
+
 	}
 }
