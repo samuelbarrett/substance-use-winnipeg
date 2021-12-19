@@ -18,3 +18,14 @@ select "Incident Number", count("Patient Number") as numPatients from Patient p
 group by "Incident Number"
 having numPatients > 2
 order by numPatients desc
+
+4. Which substances were at these drug busts?
+
+select distinct "Incident Number", substance from Consumes
+where "Incident Number" in(
+    select "Incident Number" from Patient p
+    group by "Incident Number"
+    having  count("Patient Number")> 2
+    order by  count("Patient Number") desc)
+order by "Incident Number"
+
