@@ -10,12 +10,17 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 public class SubstanceUse {
 	private static Connection connect = null;
 
 	// main
 	public static void main(String[] args) {
 		// instantiate SQLite JDBC for database connection
+		gui();
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch(Exception e) {
@@ -65,5 +70,17 @@ public class SubstanceUse {
 			System.out.println(e.getMessage());
 		} 
 		return result;
+	}
+ 
+	// setup the GUI using Swing
+	public static void gui() {
+		JFrame frame = new JFrame("Substance Use");
+		JPanel panel = new JPanel();
+		frame.setVisible(true);
+		frame.add(panel);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Substance Use");
+		frame.pack();
+		frame.setSize(800, 500);
 	}
 }
