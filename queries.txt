@@ -9,6 +9,12 @@ group by wardName
 
 select age, count("Narcan Administrations") as numNarcan from Patient p
 group by age
+
 ----------
 
-3. 
+3. Biggest drug busts by number of people (maybe they were at a party)
+
+select "Incident Number", count("Patient Number") as numPatients from Patient p
+group by "Incident Number"
+having numPatients > 2
+order by numPatients desc
