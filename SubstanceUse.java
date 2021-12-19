@@ -48,8 +48,6 @@ public class SubstanceUse {
 		}
 	}
 
-	// 
-
 	// execute the query provided
 	public static ResultSet execute(String query) {
 		ResultSet result = null;
@@ -74,6 +72,10 @@ public class SubstanceUse {
 		frame.setSize(800, 500);
 
 	}
+
+	// ========================   QUERY FUNCTIONS   ========================
+	//
+	// (to be called by pressing buttons in our GUI)
 
 	// 1. which Wards have the most Narcan administrations?
 	public static void narcanByWard() {
@@ -176,11 +178,4 @@ public class SubstanceUse {
 		" order by count(*) desc";
 		execute(query);
 	}
-
-
-	public static void name() {
-		String query = "";
-		execute(query);
-	}
-
 }
