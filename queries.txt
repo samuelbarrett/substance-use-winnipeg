@@ -39,4 +39,10 @@ where "Incident Number" in(
 group by wardName
 order by NumParties desc
 
+6. what are the 5 most problematic areas for substance X and how many occurences do these areas have for those substances?
 
+select distinct "Neighbourhood", substance, count(substance) as yup from patient natural join consumes join Neighbourhood on "Neighbourhood ID" = NeighbourhoodID
+where substance == 'Crystal Meth'
+group by "Neighbourhood ID", substance
+order by yup desc, Neighbourhood
+limit 5

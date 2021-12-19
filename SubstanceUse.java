@@ -35,7 +35,7 @@ public class SubstanceUse {
 		} 
 		catch(SQLException e) {
 			System.out.println(e.getMessage());
-		} 
+		}
 		finally {
 			// we close the connection if applicable
 			try {
