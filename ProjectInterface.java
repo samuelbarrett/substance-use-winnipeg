@@ -204,11 +204,11 @@ class ProjectInterface extends JFrame
         d.setBounds(660, 100, size.width, size.height);
         panel.add(d);
 
-		frame.setVisible(true);
-		frame.add(panel);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("3380 Project: Group 6");
-		frame.pack();
-		frame.setSize(1000, 800);        
+	frame.setVisible(true);
+	frame.add(panel);
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.setTitle("3380 Project: Group 6");
+	frame.pack();
+	frame.setSize(1000, 800);        
     }
 }
