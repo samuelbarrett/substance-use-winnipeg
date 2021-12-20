@@ -2,7 +2,7 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
-class ProjectInterface extends JFrame 
+public class ProjectInterface extends JFrame 
 {
     // JFrame
     static JFrame f;
@@ -13,10 +13,11 @@ class ProjectInterface extends JFrame
     // Label to display text
     static JLabel l;
   
-    // Main drive method
-    public static void main(String[] args)
-    {
-        JFrame frame = new JFrame("3380 Project: Group 6");
+	// constructor
+    public ProjectInterface() {}
+
+	public void gui() {
+		JFrame frame = new JFrame("3380 Project: Group 6");
 
 		JPanel panel = new JPanel();
         panel.setLayout(null);
@@ -193,7 +194,7 @@ class ProjectInterface extends JFrame
         panel.add(w);
 
         // Consumes button
-        JButton c = new JButton("Ward Table");
+        JButton c = new JButton("Consumes Table");
         size = c.getPreferredSize();
         c.setBounds(782, 720, size.width, size.height);
         panel.add(c);
@@ -204,11 +205,11 @@ class ProjectInterface extends JFrame
         d.setBounds(660, 100, size.width, size.height);
         panel.add(d);
 
-	frame.setVisible(true);
-	frame.add(panel);
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.setTitle("3380 Project: Group 6");
-	frame.pack();
-	frame.setSize(1000, 800);        
-    }
+		frame.setVisible(true);
+		frame.add(panel);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("3380 Project: Group 6");
+		frame.pack();
+		frame.setSize(1000, 800);
+	}
 }
