@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javax.swing.JFrame;
 
 public class SubstanceUse {
 	private static Connection connect = null;
@@ -50,7 +49,7 @@ public class SubstanceUse {
 	}
 
 	// execute the query provided
-	public static ResultSet execute(String query) {
+	public static ResultSet execute(String query, String[] columnNames) {
 		ResultSet result = null;
 		try {
 			Statement statement = connect.createStatement();
@@ -68,44 +67,52 @@ public class SubstanceUse {
 	// GET TABLES
 	public static void viewConsumes() {
 		String query = "select * from Consumes";
-		execute(query);
+		String[] columnNames = {"Incident #", "DispatchDate", "Patient #", "Substance"};
+		execute(query, columnNames);
 	}
 	public static void viewIncident() {
 		String query = "select * from Incident";
-		execute(query);
+		String[] columnNames = {"Incident #", "DispatchDate", "NeighbourhoodID"};
+		execute(query, columnNames);
 	}
 	public static void viewNeighbourhood() {
 		String query = "select * from Neighbourhood";
-		execute(query);
+		String[] columnNames = {"NeighbourhoodID", "Name", "WardName"};
+		execute(query, columnNames);
 	}
 	public static void viewPatient() {
 		String query = "select * from Patient";
-		execute(query);
+		String[] columnNames = {"Patient #", "Incident #", "DispatchDate", "Age", "Gender", "NeighbourhoodID", "Narcan"};
+		execute(query, columnNames);
 	}
 	public static void viewSubstance() {
 		String query = "select * from Substance";
-		execute(query);
+		String[] columnNames = {"Incident #", "DispatchDate", "Substance"};
+		execute(query, columnNames);
 	}
 	public static void viewWard() {
 		String query = "select * from Ward";
-		execute(query);
+		String[] columnNames = {"WardName"};
+		execute(query, columnNames);
 	}
 
-	// QUERIES
+	// ACTUAL QUERIES
 
 	// 1. which Wards have the most Narcan administrations?
 	public static void narcanByWard() {
 		String query = "select WardName, count(\"Narcan Administrations\") from Patient p, Neighbourhood n" + 
 						" where p.\"Neighbourhood ID\" = n.NeighbourhoodID" + 
 						" group by wardName";
-		execute(query);
+		String[] columnNames = {"Ward", "NarcanCount"};
+		execute(query, columnNames);
 	}
 
 	// 2. Which age groups have the most narcan incidents?
 	public static void narcanByAge() {
 		String query = "select age, count(\"Narcan Administrations\") as numNarcan from Patient p" +
 					" group by age";
-		execute(query);
+		String[] columnNames = {"Age Group", "NarcanCount"};
+		execute(query, columnNames);
 	}
 
 	// 3. Biggest drug busts by number of people (maybe they were at a party)
@@ -114,7 +121,8 @@ public class SubstanceUse {
 		" group by \"Incident Number\"" +
 		" having numPatients > 2" + 
 		" order by numPatients desc";
-		execute(query);
+		String[] columnNames = {"Incident", "numPeople"};
+		execute(query, columnNames);
 	}
 	// 4. Which substances were at the parties people get wasted in? Most common? 
 	public static void partySubstances() {
@@ -125,7 +133,8 @@ public class SubstanceUse {
 			" having  count(\"Patient Number\")> 2" +
 			" order by  count(\"Patient Number\") desc)" +
 		" order by \"Incident Number\"";
-		execute(query);
+		String[] columnNames = {"Incident", "Substance"};
+		execute(query, columnNames);
 	}
 	// 5. How many parties did each ward have?
 	public static void partiesByWard() {
@@ -138,7 +147,8 @@ public class SubstanceUse {
 			" order by  count(\"Patient Number\") desc)" +
 		" group by wardName" +
 		" order by NumParties desc";
-		execute(query);
+		String[] columnNames = {"Ward", "numParties"};
+		execute(query, columnNames);
 	}
 	// 6. Most problematic areas for Substance X
 	public static void neighbourhoodForSubstance(String substance) {
@@ -148,7 +158,8 @@ public class SubstanceUse {
 		" group by \"Neighbourhood ID\", substance" +
 		" order by yup desc, Neighbourhood" +
 		"limit 5";
-		execute(query);
+		String[] columnNames = {"Neighbourhood", "Substance", "Total"};
+		execute(query, columnNames);
 	}
 	// 7. What are the most common age/substance combinations?
 	public static void ageSubstanceCombination() {
@@ -156,7 +167,8 @@ public class SubstanceUse {
 		" group by age, substance" +
 		" order by yup desc" +
 		" limit 10";
-		execute(query);
+		String[] columnNames = {"Age Group", "Substance", "Total"};
+		execute(query, columnNames);
 	}
 	// 8. What are the most common age groups for substance X?
 	public static void ageForSubstance(String substance) {
@@ -165,7 +177,8 @@ public class SubstanceUse {
 		" group by age, substance" +
 		" order by yup desc" +
 		"limit 5";
-		execute(query);
+		String[] columnNames = {"Age Group", "Substance", "Total"};
+		execute(query, columnNames);
 	}
 	// 9. Which holidays have the highest prevalence of substance use?
 	public static void holidays() {
@@ -175,7 +188,8 @@ public class SubstanceUse {
 		" union select \"New Years Eve\" as Date, count(*) from patient where \"Dispatch Date\" like '12/31%' union select \"New Years Day\" as Date, count(*) from patient where \"Dispatch Date\" like '01/01%'" +
 		" union select \"New Years Day\" as Date, count(*) from patient where \"Dispatch Date\" like '01/01%'" +
 		" order by count(*) desc";
-		execute(query);
+		String[] columnNames = {"Day", "Total Patients"};
+		execute(query, columnNames);
 	}
 	// 10. What hour of the day is the most common for substance use?
 	public static void hours() {
@@ -192,6 +206,7 @@ public class SubstanceUse {
 		" select \"9 PM\" as Time, count(*) from patient where \"Dispatch Date\" like '___________09:______PM' union select \"10 PM\" as Time, count(*) from patient where \"Dispatch Date\" like '___________10:______PM'" +
 		" select \"11 PM\" as Time, count(*) from patient where \"Dispatch Date\" like '___________11:______PM' union select \"12 PM\" as Time, count(*) from patient where \"Dispatch Date\" like '___________12:______PM'" +
 		" order by count(*) desc";
-		execute(query);
+		String[] columnNames = {"Hour", "Total Patients"};
+		execute(query, columnNames);
 	}
 }
