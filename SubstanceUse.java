@@ -49,7 +49,6 @@ public class SubstanceUse {
 			Statement statement = connect.createStatement();
 			result = statement.executeQuery(query);
 			model = buildTableModel(result);
-			System.out.println("AYO FAM");
 		} catch(SQLException e ) {
 			System.out.println(e.getMessage());
 		}
