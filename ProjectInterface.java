@@ -1,21 +1,29 @@
 import java.awt.event.*;
+import java.sql.ResultSet;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class ProjectInterface extends JFrame 
 {
-    // JFrame
     static JFrame f;
-  
-    // JButton
     static JButton b, b1, b2, b3;
-  
-    // Label to display text
     static JLabel l;
+
+	private JTable table;
   
 	// constructor
-    public ProjectInterface() {}
+    public ProjectInterface() {
+		table = new JTable(new DefaultTableModel());
+	}
 
+
+	// update the table (do i have to redraw the gui?)
+	public void updateTable(DefaultTableModel model) {
+		
+	}
+
+	// draw the gui
 	public void gui() {
 		JFrame frame = new JFrame("3380 Project: Group 6");
 
@@ -53,6 +61,9 @@ public class ProjectInterface extends JFrame
         JButton b1 = new JButton("Run");
         size = b1.getPreferredSize();
         b1.setBounds(30, 125, size.width, size.height);
+		b1.addActionListener(e -> {
+			updateTable(SubstanceUse.narcanByWard());
+		});
         panel.add(b1);
 
         // query #2
@@ -65,6 +76,9 @@ public class ProjectInterface extends JFrame
         JButton b2 = new JButton("Run");
         size = b2.getPreferredSize();
         b2.setBounds(30, 185, size.width, size.height);
+		b2.addActionListener(e -> {
+			SubstanceUse.narcanByAge();
+		});
         panel.add(b2);
 
         // query #3
@@ -77,6 +91,9 @@ public class ProjectInterface extends JFrame
         JButton b3 = new JButton("Run");
         size = b3.getPreferredSize();
         b3.setBounds(30, 245, size.width, size.height);
+		b3.addActionListener(e -> {
+			SubstanceUse.parties();
+		});
         panel.add(b3);
 
         // query #4
@@ -89,6 +106,9 @@ public class ProjectInterface extends JFrame
         JButton b4 = new JButton("Run");
         size = b4.getPreferredSize();
         b4.setBounds(30, 305, size.width, size.height);
+		b4.addActionListener(e -> {
+			SubstanceUse.partySubstances();
+		});
         panel.add(b4);
 
         // query #5

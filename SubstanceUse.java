@@ -8,7 +8,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+
+import javax.swing.table.DefaultTableModel;
 
 
 public class SubstanceUse {
@@ -36,28 +39,48 @@ public class SubstanceUse {
 		catch(SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		finally {
-			// we close the connection if applicable
-			try {
-				if(connect != null) {
-					connect.close();
-				}
-			} catch(SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
 	}
 
-	// execute the query provided
-	public static ResultSet execute(String query, String[] columnNames) {
+	// execute the query provided, send data to buildTableModel and return its output
+	public static DefaultTableModel execute(String query, String[] columnNames) {
 		ResultSet result = null;
+		DefaultTableModel model = null;
 		try {
 			Statement statement = connect.createStatement();
 			result = statement.executeQuery(query);
+			model = buildTableModel(result);
+			System.out.println("AYO FAM");
 		} catch(SQLException e ) {
 			System.out.println(e.getMessage());
-		} 
-		return result;
+		}
+		return model;
+	}
+
+	// given the result set from execute(), build a table model (for a JTable to read) and return it.
+	public static DefaultTableModel buildTableModel(ResultSet data) throws SQLException {
+		ResultSetMetaData metaData = data.getMetaData();
+		// create the table and make it non-editable. Editing is not ideal.
+		DefaultTableModel model = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		// add the result columns to the table
+		int cols = metaData.getColumnCount();
+		for(int i = 0; i < cols; i++) {
+			model.addColumn(metaData.getColumnLabel(i));
+		}
+		Object[] tuple;
+		// go through each row, inserting into the table model
+		while(data.next()) {
+			tuple = new Object[cols];
+			for(int j = 0; j < cols; j++) {
+				tuple[j] = data.getObject(j+1);
+			}
+			model.addRow(tuple);
+		}
+		return new DefaultTableModel();
 	}
 
 	// ========================   QUERY FUNCTIONS   ========================
@@ -99,12 +122,12 @@ public class SubstanceUse {
 	// ACTUAL QUERIES
 
 	// 1. which Wards have the most Narcan administrations?
-	public static void narcanByWard() {
+	public static DefaultTableModel narcanByWard() {
 		String query = "select WardName, count(\"Narcan Administrations\") from Patient p, Neighbourhood n" + 
 						" where p.\"Neighbourhood ID\" = n.NeighbourhoodID" + 
 						" group by wardName";
 		String[] columnNames = {"Ward", "NarcanCount"};
-		execute(query, columnNames);
+		return execute(query, columnNames);
 	}
 
 	// 2. Which age groups have the most narcan incidents?
