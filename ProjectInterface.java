@@ -11,6 +11,7 @@ public class ProjectInterface extends JFrame
     static JLabel l;
 
 	private JTable table;
+	private JScrollPane scrollPane;
   
 	// constructor
     public ProjectInterface() {
@@ -29,6 +30,11 @@ public class ProjectInterface extends JFrame
 
 		JPanel panel = new JPanel();
         panel.setLayout(null);
+
+		// table
+		JScrollPane tableView = new JScrollPane(table);
+		tableView.setBounds(520, 130, 850, 580);;
+		panel.add(tableView);
 
         // big header
         JLabel h = new JLabel("Group 6: Substance Use");
@@ -230,6 +236,6 @@ public class ProjectInterface extends JFrame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("3380 Project: Group 6");
 		frame.pack();
-		frame.setSize(1000, 800);
+		frame.setSize(1400, 800);
 	}
 }

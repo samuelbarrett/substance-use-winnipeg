@@ -80,7 +80,7 @@ public class SubstanceUse {
 			}
 			model.addRow(tuple);
 		}
-		return new DefaultTableModel();
+		return model;
 	}
 
 	// ========================   QUERY FUNCTIONS   ========================
