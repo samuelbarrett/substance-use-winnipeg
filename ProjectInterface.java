@@ -1,5 +1,4 @@
 import java.awt.event.*;
-import java.sql.ResultSet;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -9,6 +8,7 @@ public class ProjectInterface extends JFrame
     static JFrame f;
     static JButton b, b1, b2, b3;
     static JLabel l;
+	static JPanel panel;
 
 	private JTable table;
 	private JScrollPane scrollPane;
@@ -16,25 +16,25 @@ public class ProjectInterface extends JFrame
 	// constructor
     public ProjectInterface() {
 		table = new JTable(new DefaultTableModel());
+		scrollPane = new JScrollPane(table);
 	}
 
 
 	// update the table (do i have to redraw the gui?)
 	public void updateTable(DefaultTableModel model) {
-		
+		table.setModel(model);
 	}
 
 	// draw the gui
 	public void gui() {
 		JFrame frame = new JFrame("3380 Project: Group 6");
 
-		JPanel panel = new JPanel();
+		panel = new JPanel();
         panel.setLayout(null);
 
 		// table
-		JScrollPane tableView = new JScrollPane(table);
-		tableView.setBounds(520, 130, 850, 580);;
-		panel.add(tableView);
+		scrollPane.setBounds(520, 130, 850, 580);
+		panel.add(scrollPane);
 
         // big header
         JLabel h = new JLabel("Group 6: Substance Use");
