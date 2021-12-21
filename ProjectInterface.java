@@ -83,7 +83,7 @@ public class ProjectInterface extends JFrame
         size = b2.getPreferredSize();
         b2.setBounds(30, 185, size.width, size.height);
 		b2.addActionListener(e -> {
-			SubstanceUse.narcanByAge();
+			updateTable(SubstanceUse.narcanByAge());
 		});
         panel.add(b2);
 
@@ -98,7 +98,7 @@ public class ProjectInterface extends JFrame
         size = b3.getPreferredSize();
         b3.setBounds(30, 245, size.width, size.height);
 		b3.addActionListener(e -> {
-			SubstanceUse.parties();
+			updateTable(SubstanceUse.parties());
 		});
         panel.add(b3);
 
@@ -113,7 +113,7 @@ public class ProjectInterface extends JFrame
         size = b4.getPreferredSize();
         b4.setBounds(30, 305, size.width, size.height);
 		b4.addActionListener(e -> {
-			SubstanceUse.partySubstances();
+			updateTable(SubstanceUse.partySubstances());
 		});
         panel.add(b4);
 
@@ -127,10 +127,13 @@ public class ProjectInterface extends JFrame
         JButton b5 = new JButton("Run");
         size = b5.getPreferredSize();
         b5.setBounds(30, 365, size.width, size.height);
+		b5.addActionListener(e -> {
+			updateTable(SubstanceUse.partiesByWard());
+		});
         panel.add(b5);
 
         // query #6
-        JLabel q6 = new JLabel("6. What are the most common areas for X substance?");
+        JLabel q6 = new JLabel("6. What are the most common areas for crystal meth?");
         size = q6.getPreferredSize();
         q6.setBounds(100, 430, size.width, size.height);
         panel.add(q6);
@@ -139,6 +142,9 @@ public class ProjectInterface extends JFrame
         JButton b6 = new JButton("Run");
         size = b6.getPreferredSize();
         b6.setBounds(30, 425, size.width, size.height);
+		b6.addActionListener(e -> {
+			updateTable(SubstanceUse.neighbourhoodForSubstance("Crystal Meth"));
+		});
         panel.add(b6);
 
         // query #7
@@ -151,10 +157,13 @@ public class ProjectInterface extends JFrame
         JButton b7 = new JButton("Run");
         size = b7.getPreferredSize();
         b7.setBounds(30, 485, size.width, size.height);
+		b7.addActionListener(e -> {
+			updateTable(SubstanceUse.ageSubstanceCombination());
+		});
         panel.add(b7);
 
         // query #8
-        JLabel q8 = new JLabel("8. What are the most common age groups for substance X?");
+        JLabel q8 = new JLabel("8. What are the most common age groups for opioids?");
         size = q8.getPreferredSize();
         q8.setBounds(100, 550, size.width, size.height);
         panel.add(q8);
@@ -163,6 +172,9 @@ public class ProjectInterface extends JFrame
         JButton b8 = new JButton("Run");
         size = b8.getPreferredSize();
         b8.setBounds(30, 545, size.width, size.height);
+		b8.addActionListener(e -> {
+			updateTable(SubstanceUse.ageForSubstance("Opioids"));
+		});
         panel.add(b8);
 
         // query #9
@@ -175,6 +187,9 @@ public class ProjectInterface extends JFrame
         JButton b9 = new JButton("Run");
         size = b9.getPreferredSize();
         b9.setBounds(30, 605, size.width, size.height);
+		b9.addActionListener(e -> {
+			updateTable(SubstanceUse.holidays());
+		});
         panel.add(b9);
 
         // query #10
@@ -187,48 +202,72 @@ public class ProjectInterface extends JFrame
         JButton b10 = new JButton("Run");
         size = b10.getPreferredSize();
         b10.setBounds(30, 665, size.width, size.height);
+		b10.addActionListener(e -> {
+			updateTable(SubstanceUse.hours());
+		});
         panel.add(b10);
 
         // Patient button
         JButton p = new JButton("Patient Table");
         size = p.getPreferredSize();
         p.setBounds(370, 720, size.width, size.height);
+		p.addActionListener(e -> {
+			updateTable(SubstanceUse.viewPatient());
+		});
         panel.add(p);
 
         // Incident button
         JButton i = new JButton("Incident Table");
         size = i.getPreferredSize();
         i.setBounds(245, 720, size.width, size.height);
+		i.addActionListener(e -> {
+			updateTable(SubstanceUse.viewIncident());
+		});
         panel.add(i);
 
         // substances button
         JButton s = new JButton("Substance Table");
         size = s.getPreferredSize();
         s.setBounds(104, 720, size.width, size.height);
+		s.addActionListener(e -> {
+			updateTable(SubstanceUse.viewSubstance());
+		});
         panel.add(s);
 
         // Neighbourhood button
         JButton n = new JButton("Neighbourhood Table");
         size = n.getPreferredSize();
         n.setBounds(490, 720, 170, size.height);
+		n.addActionListener(e -> {
+			updateTable(SubstanceUse.viewNeighbourhood());
+		});
         panel.add(n);
         
         // Ward button
         JButton w = new JButton("Ward Table");
         size = w.getPreferredSize();
         w.setBounds(672, 720, size.width, size.height);
+		w.addActionListener(e -> {
+			updateTable(SubstanceUse.viewWard());
+		});
         panel.add(w);
 
         // Consumes button
         JButton c = new JButton("Consumes Table");
         size = c.getPreferredSize();
         c.setBounds(782, 720, size.width, size.height);
+		c.addActionListener(e -> {
+			updateTable(SubstanceUse.viewConsumes());
+		});
         panel.add(c);
 
         // download results
         JButton d = new JButton("Download Results");
         size = d.getPreferredSize();
         d.setBounds(660, 100, size.width, size.height);
+		d.addActionListener(e -> {
+			System.out.println("Download CSV results feature coming soon");
+		});
         panel.add(d);
 
 		frame.setVisible(true);
