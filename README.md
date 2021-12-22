@@ -4,7 +4,7 @@
 
 <h3>Compile and run:</h3>
 
-<h4>Windows:</h4>
+<h4>Windows (use command prompt):</h4>
 
 javac SubstanceUse.java
 
