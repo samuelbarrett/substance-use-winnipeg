@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.io.*;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
 public class SubstanceUse {
 	private static Connection connect = null;
 	private static ProjectInterface gui = null;
+	private static DefaultTableModel tableModel = null;
+	private static String tableTitle = "blank.txt";
 	// main
 	public static void main(String[] args) {
 		// instantiate SQLite JDBC for database connection
@@ -52,6 +55,7 @@ public class SubstanceUse {
 		} catch(SQLException e ) {
 			System.out.println(e.getMessage());
 		}
+		tableModel = model;
 		return model;
 	}
 
@@ -82,6 +86,38 @@ public class SubstanceUse {
 		return model;
 	}
 
+	public static void resultsCSV() {
+		File out = new File(tableTitle + ".csv");
+		if(tableModel != null) {
+			try {
+				FileWriter writer = new FileWriter(out);
+				int cols = tableModel.getColumnCount();
+				// write the column headers
+				for(int i = 0; i < cols; i++) {
+					writer.write(tableModel.getColumnName(i));
+					if(i<cols-1) {
+						writer.write(",");
+					}
+				}
+				// write each row
+				for(int j = 0; j < tableModel.getRowCount(); j++) {
+					writer.write("\n");
+					for(int k = 0; k < cols; k++) {
+						String value = tableModel.getValueAt(j,k) == null ? "null" : tableModel.getValueAt(j,k).toString();
+						writer.write(value);
+						if(k < cols-1 ) {
+							writer.write(",");
+						}
+					}
+				}
+				System.out.println("Saved table to " + tableTitle + ".csv in the project directory.");
+				writer.close();
+			} catch(IOException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+
 	// ========================   QUERY FUNCTIONS   ========================
 	//
 	// (to be called by pressing buttons in our GUI)
@@ -89,26 +125,32 @@ public class SubstanceUse {
 	// GET TABLES
 	public static DefaultTableModel viewConsumes() {
 		String query = "select * from Consumes";
+		tableTitle = "Consumes";
 		return execute(query);
 	}
 	public static DefaultTableModel viewIncident() {
 		String query = "select * from Incident";
+		tableTitle = "Incident";
 		return execute(query);
 	}
 	public static DefaultTableModel viewNeighbourhood() {
 		String query = "select * from Neighbourhood";
+		tableTitle = "Neighbourhood";
 		return execute(query);
 	}
 	public static DefaultTableModel viewPatient() {
 		String query = "select * from Patient";
+		tableTitle = "Patient";
 		return execute(query);
 	}
 	public static DefaultTableModel viewSubstance() {
 		String query = "select * from Substance";
+		tableTitle = "Substance";
 		return execute(query);
 	}
 	public static DefaultTableModel viewWard() {
 		String query = "select * from Ward";
+		tableTitle = "Ward";
 		return execute(query);
 	}
 
@@ -116,21 +158,26 @@ public class SubstanceUse {
 
 	// 1. which Wards have the most Narcan administrations?
 	public static DefaultTableModel narcanByWard() {
+		tableTitle = "narcanByWard";
 		String query = "select WardName, count(\"Narcan Administrations\") as numNarcan from Patient p, Neighbourhood n" + 
 						" where p.\"Neighbourhood ID\" = n.NeighbourhoodID" + 
-						" group by wardName";
+						" group by wardName" +
+						" order by numNarcan";
 		return execute(query);
 	}
 
 	// 2. Which age groups have the most narcan incidents?
 	public static DefaultTableModel narcanByAge() {
+		tableTitle = "narcanByAge";
 		String query = "select age, count(\"Narcan Administrations\") as numNarcan from Patient p" +
-					" group by age";
+					" group by age" +
+					" order by numNarcan desc";
 		return execute(query);
 	}
 
 	// 3. Biggest drug busts by number of people (maybe they were at a party)
 	public static DefaultTableModel parties() {
+		tableTitle = "parties";
 		String query = "select \"Incident Number\", count(\"Patient Number\") as numPatients from Patient p" +
 		" group by \"Incident Number\"" +
 		" having numPatients > 2" + 
@@ -139,7 +186,8 @@ public class SubstanceUse {
 	}
 	// 4. Which substances were at the parties people get wasted in? Most common? 
 	public static DefaultTableModel partySubstances() {
-		String query = "select distinct \"Incident Number\", substance from Consumes" +
+		tableTitle = "Party Substances";
+		String query = "select distinct \"Incident Number\", substance from Consumes c" +
 		" where \"Incident Number\" in (" +
 			" select \"Incident Number\" from Patient p" +
 			" group by \"Incident Number\"" +
@@ -150,6 +198,7 @@ public class SubstanceUse {
 	}
 	// 5. How many parties did each ward have?
 	public static DefaultTableModel partiesByWard() {
+		tableTitle = "Parties by Ward";
 		String query = "select distinct wardName, count (distinct\"Incident Number\") as NumParties from patient join neighbourhood" +
 		" on patient.\"neighbourhood ID\" = neighbourhood.neighbourhoodID" +
 		" where \"Incident Number\" in(" +
@@ -163,7 +212,8 @@ public class SubstanceUse {
 	}
 	// 6. Most problematic areas for Substance X
 	public static DefaultTableModel neighbourhoodForSubstance(String substance) {
-		String query = "select distinct \"Neighbourhood\", substance, count(substance) as numPatients from patient natural join consumes join Neighbourhood" +
+		tableTitle = "Problematic Neighbourhoods";
+		String query = "select distinct \"Neighbourhood\", count(substance) as numPatients from patient natural join consumes join Neighbourhood" +
 		" on \"Neighbourhood ID\" = NeighbourhoodID" +
 		" where substance == '" + substance + "'" +
 		" group by \"Neighbourhood ID\", substance" +
@@ -173,6 +223,7 @@ public class SubstanceUse {
 	}
 	// 7. What are the most common age/substance combinations?
 	public static DefaultTableModel ageSubstanceCombination() {
+		tableTitle = "ageSubstance-combinations";
 		String query = "select distinct age, substance, count(substance) as numPatients from patient natural join consumes" +
 		" group by age, substance" +
 		" order by numPatients desc" +
@@ -181,7 +232,8 @@ public class SubstanceUse {
 	}
 	// 8. What are the most common age groups for substance X?
 	public static DefaultTableModel ageForSubstance(String substance) {
-		String query = "select distinct age, substance, count(substance) as numPatients from patient natural join consumes" +
+		tableTitle = "Common age groups";
+		String query = "select distinct age, count(substance) as numPatients from patient natural join consumes" +
 		" where substance = '" + substance + "'" +
 		" group by age, substance" +
 		" order by numPatients desc" +
@@ -190,6 +242,7 @@ public class SubstanceUse {
 	}
 	// 9. Which holidays have the highest prevalence of substance use?
 	public static DefaultTableModel holidays() {
+		tableTitle = "holidays";
 		String query = "select \"Valentine's day\" as Date, count(*) as numPatients from patient where \"Dispatch Date\" like '02/14%' union select \"Christmas Eve\" as Date, count(*) from patient where \"Dispatch Date\" like '12/24%'" +
 		" union select \"Christmas Day\" as Date, count(*) from patient where \"Dispatch Date\" like '12/25%' union select \"Boxing Day\" as Date, count(*) from patient where \"Dispatch Date\" like '12/26%'" +
 		" union select \"Halloween\" as Date, count(*) from patient where \"Dispatch Date\" like '08/31%' union select \"New Years Eve\" as Date, count(*) from patient where \"Dispatch Date\" like '12/31%'" +
@@ -200,6 +253,7 @@ public class SubstanceUse {
 	}
 	// 10. What hour of the day is the most common for substance use?
 	public static DefaultTableModel hours() {
+		tableTitle = "hoursOfDay";
 		String query = "select \"1 AM\" as Time, count(*) as numPatients from patient where \"Dispatch Date\" like '___________01:______AM' union select \"2 AM\" as Time, count(*) from patient where \"Dispatch Date\" like '___________02:______AM'" +
 		" union select \"3 AM\" as Time, count(*) from patient where \"Dispatch Date\" like '___________03:______AM' union select \"4 AM\" as Time, count(*) from patient where \"Dispatch Date\" like '___________04:______AM'" +
 		" union select \"5 AM\" as Time, count(*) from patient where \"Dispatch Date\" like '___________05:______AM' union select \"6 AM\" as Time, count(*) from patient where \"Dispatch Date\" like '___________06:______AM'" +

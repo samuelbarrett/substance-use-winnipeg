@@ -266,7 +266,7 @@ public class ProjectInterface extends JFrame
         size = d.getPreferredSize();
         d.setBounds(660, 100, size.width, size.height);
 		d.addActionListener(e -> {
-			System.out.println("Download CSV results feature coming soon");
+			SubstanceUse.resultsCSV();
 		});
         panel.add(d);
 

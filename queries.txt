@@ -1,8 +1,9 @@
 1. Which wards have the most narcan incidents?
 
-select WardName, count("Narcan Administrations") from Patient p, Neighbourhood n
+select WardName, count("Narcan Administrations") as narcanCount from Patient p, Neighbourhood n
 where p."Neighbourhood ID" = n.NeighbourhoodID
 group by wardName
+order by narcanCount
 ----------
 
 2. Which age groups have the most narcan incidents?
@@ -14,7 +15,8 @@ group by age
 
 3. Biggest drug busts by number of people (maybe they were at a party)
 
-select "Incident Number", count("Patient Number") as numPatients from Patient p
+select "Incident Number", Neighbourhood, count("Patient Number") as numPatients from Patient p, Neighbourhood n
+where n.NeighbourhoodID = p."Neighbourhood ID"
 group by "Incident Number"
 having numPatients > 2
 order by numPatients desc
