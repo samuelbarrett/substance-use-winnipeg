@@ -86,6 +86,7 @@ public class SubstanceUse {
 		return model;
 	}
 
+	// output the most recent query results to CSV file
 	public static void resultsCSV() {
 		File out = new File(tableTitle + ".csv");
 		if(tableModel != null) {
