@@ -5,10 +5,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class ProjectInterface extends JFrame 
 {
-    static JFrame f;
-    static JButton b, b1, b2, b3;
-    static JLabel l;
 	static JPanel panel;
+    JLabel picked = null;
+    JButton prev = null;
 
 	private JTable table;
 	private JScrollPane scrollPane;
@@ -40,7 +39,7 @@ public class ProjectInterface extends JFrame
         JLabel h = new JLabel("Group 6: Substance Use");
         h.setFont(new Font("SansSerif", Font.PLAIN, 25));
         Dimension size = h.getPreferredSize();
-        h.setBounds(360, 5, 300, 50);
+        h.setBounds(525, 5, 300, 50);
         panel.add(h);
 
         // queries header
@@ -54,7 +53,7 @@ public class ProjectInterface extends JFrame
         JLabel rh = new JLabel("Results");
         rh.setFont(new Font("SansSerif", Font.PLAIN, 15));
         size = rh.getPreferredSize();
-        rh.setBounds(700, 70, 100, size.height);
+        rh.setBounds(925, 70, 100, size.height);
         panel.add(rh);
 
         // query #1
@@ -69,6 +68,20 @@ public class ProjectInterface extends JFrame
         b1.setBounds(30, 125, size.width, size.height);
 		b1.addActionListener(e -> {
 			updateTable(SubstanceUse.narcanByWard());
+            q1.setForeground(Color.red);
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+            }
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+                prev = null;
+            }
+
+            picked = q1;
 		});
         panel.add(b1);
 
@@ -84,6 +97,20 @@ public class ProjectInterface extends JFrame
         b2.setBounds(30, 185, size.width, size.height);
 		b2.addActionListener(e -> {
 			updateTable(SubstanceUse.narcanByAge());
+            q2.setForeground(Color.red);
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+            }
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+                prev = null;
+            }
+
+            picked = q2;
 		});
         panel.add(b2);
 
@@ -99,6 +126,20 @@ public class ProjectInterface extends JFrame
         b3.setBounds(30, 245, size.width, size.height);
 		b3.addActionListener(e -> {
 			updateTable(SubstanceUse.parties());
+            q3.setForeground(Color.red);
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+            }
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+                prev = null;
+            }
+
+            picked = q3;
 		});
         panel.add(b3);
 
@@ -114,6 +155,20 @@ public class ProjectInterface extends JFrame
         b4.setBounds(30, 305, size.width, size.height);
 		b4.addActionListener(e -> {
 			updateTable(SubstanceUse.partySubstances());
+            q4.setForeground(Color.red);
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+            }
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+                prev = null;
+            }
+
+            picked = q4;
 		});
         panel.add(b4);
 
@@ -129,6 +184,20 @@ public class ProjectInterface extends JFrame
         b5.setBounds(30, 365, size.width, size.height);
 		b5.addActionListener(e -> {
 			updateTable(SubstanceUse.partiesByWard());
+            q5.setForeground(Color.red);
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+            }
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+                prev = null;
+            }
+
+            picked = q5;
 		});
         panel.add(b5);
 
@@ -144,7 +213,21 @@ public class ProjectInterface extends JFrame
         b6.setBounds(30, 425, size.width, size.height);
 		b6.addActionListener(e -> {
 			updateTable(SubstanceUse.neighbourhoodForSubstance("Crystal Meth"));
-		});
+            q6.setForeground(Color.red);
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+            }
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+                prev = null;
+            }
+
+            picked = q6;
+        });
         panel.add(b6);
 
         // query #7
@@ -159,6 +242,20 @@ public class ProjectInterface extends JFrame
         b7.setBounds(30, 485, size.width, size.height);
 		b7.addActionListener(e -> {
 			updateTable(SubstanceUse.ageSubstanceCombination());
+            q7.setForeground(Color.red);
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+            }
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+                prev = null;
+            }
+
+            picked = q7;
 		});
         panel.add(b7);
 
@@ -174,6 +271,20 @@ public class ProjectInterface extends JFrame
         b8.setBounds(30, 545, size.width, size.height);
 		b8.addActionListener(e -> {
 			updateTable(SubstanceUse.ageForSubstance("Opioids"));
+            q8.setForeground(Color.red);
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+            }
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+                prev = null;
+            }
+
+            picked = q8;
 		});
         panel.add(b8);
 
@@ -189,6 +300,20 @@ public class ProjectInterface extends JFrame
         b9.setBounds(30, 605, size.width, size.height);
 		b9.addActionListener(e -> {
 			updateTable(SubstanceUse.holidays());
+            q9.setForeground(Color.red);
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+            }
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+                prev = null;
+            }
+
+            picked = q9;
 		});
         panel.add(b9);
 
@@ -204,6 +329,20 @@ public class ProjectInterface extends JFrame
         b10.setBounds(30, 665, size.width, size.height);
 		b10.addActionListener(e -> {
 			updateTable(SubstanceUse.hours());
+            q10.setForeground(Color.red);
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+            }
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+                prev = null;
+            }
+
+            picked = q10;
 		});
         panel.add(b10);
 
@@ -213,6 +352,20 @@ public class ProjectInterface extends JFrame
         p.setBounds(370, 720, size.width, size.height);
 		p.addActionListener(e -> {
 			updateTable(SubstanceUse.viewPatient());
+            p.setForeground(Color.red);
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+            }
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+                picked = null;
+            }
+
+            prev = p;
 		});
         panel.add(p);
 
@@ -222,6 +375,20 @@ public class ProjectInterface extends JFrame
         i.setBounds(245, 720, size.width, size.height);
 		i.addActionListener(e -> {
 			updateTable(SubstanceUse.viewIncident());
+            i.setForeground(Color.red);
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+            }
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+                picked = null;
+            }
+
+            prev = i;
 		});
         panel.add(i);
 
@@ -231,6 +398,20 @@ public class ProjectInterface extends JFrame
         s.setBounds(104, 720, size.width, size.height);
 		s.addActionListener(e -> {
 			updateTable(SubstanceUse.viewSubstance());
+            s.setForeground(Color.red);
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+            }
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+                picked = null;
+            }
+
+            prev = s;
 		});
         panel.add(s);
 
@@ -240,6 +421,20 @@ public class ProjectInterface extends JFrame
         n.setBounds(490, 720, 170, size.height);
 		n.addActionListener(e -> {
 			updateTable(SubstanceUse.viewNeighbourhood());
+            n.setForeground(Color.red);
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+            }
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+                picked = null;
+            }
+
+            prev = n;
 		});
         panel.add(n);
         
@@ -249,6 +444,20 @@ public class ProjectInterface extends JFrame
         w.setBounds(672, 720, size.width, size.height);
 		w.addActionListener(e -> {
 			updateTable(SubstanceUse.viewWard());
+            w.setForeground(Color.red);
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+            }
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+                picked = null;
+            }
+
+            prev = w;
 		});
         panel.add(w);
 
@@ -258,15 +467,43 @@ public class ProjectInterface extends JFrame
         c.setBounds(782, 720, size.width, size.height);
 		c.addActionListener(e -> {
 			updateTable(SubstanceUse.viewConsumes());
+            c.setForeground(Color.red);
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+            }
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+                picked = null;
+            }
+
+            prev = c;
 		});
         panel.add(c);
 
         // download results
         JButton d = new JButton("Download Results");
         size = d.getPreferredSize();
-        d.setBounds(660, 100, size.width, size.height);
+        d.setBounds(883, 100, size.width, size.height);
 		d.addActionListener(e -> {
 			SubstanceUse.resultsCSV();
+            d.setForeground(Color.red);
+
+            if (prev != null)
+            {
+                prev.setForeground(null);
+            }
+
+            if (picked != null)
+            {
+                picked.setForeground(null);
+                picked = null;
+            }
+
+            prev = d;
 		});
         panel.add(d);
 
