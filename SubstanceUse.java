@@ -19,7 +19,7 @@ public class SubstanceUse {
 	private static Connection connect = null;
 	private static ProjectInterface gui = null;
 	private static DefaultTableModel tableModel = null;
-	private static String tableTitle = "blank.txt";
+	private static String tableTitle = "blank";
 	// main
 	public static void main(String[] args) {
 		// instantiate SQLite JDBC for database connection
@@ -34,10 +34,7 @@ public class SubstanceUse {
 		// connect to the database file
 		try {
 			connect = DriverManager.getConnection("jdbc:sqlite:substance-use-wpg.sqlite");
-			System.out.println("Connected to substance-use-wpg.sqlite");
-			// everything else goes here (loop basically? until we exit the program?)
-
-			
+			System.out.println("Connected to substance-use-wpg.sqlite");	
 		} 
 		catch(SQLException e) {
 			System.out.println(e.getMessage());
